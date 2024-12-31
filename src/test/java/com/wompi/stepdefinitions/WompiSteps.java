@@ -1,5 +1,6 @@
 package com.wompi.stepdefinitions;
 
+import com.wompi.exceptions.GeneralError;
 import com.wompi.interactions.GetMerchant;
 import com.wompi.interactions.GetTokenNequi;
 import com.wompi.models.FactoryPaymentSource;
@@ -33,7 +34,8 @@ public class WompiSteps {
         theActorInTheSpotlight().remember("infoResponseToken", responseToken);
         theActorInTheSpotlight().attemptsTo(VerifyTokenNequi.isApproved(responseToken.getData().getId()));
         theActorInTheSpotlight().should("Valida que el statud del token es: APPROVED", seeThat(VerifyTokenNequiQuestion.status(), is(true)));
-        theActorInTheSpotlight().should(seeThat(IsPhoneNumberCorrect.value(), equalTo(phone)));
+        theActorInTheSpotlight().should(seeThat(IsPhoneNumberCorrect.value(), equalTo(phone))
+                .orComplainWith(GeneralError.class,"La comparación de los valores no fue lo esperado"));
     }
 
     @And("obtiene los tokens de aceptacion prefirmados para wompi")

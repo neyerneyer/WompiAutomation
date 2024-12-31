@@ -2,7 +2,6 @@ package com.wompi.questions;
 
 import com.wompi.interactions.GetTokenNequi;
 import com.wompi.models.ResponseToken;
-import lombok.AllArgsConstructor;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 
