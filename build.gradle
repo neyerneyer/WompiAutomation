@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:4.0.12")
+    }
+}
+
+plugins {
+    id 'java'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.0.12'
+}
+
+group = 'com.wompi'
+version = '1.0-SNAPSHOT'
+description = """Reto Wompi"""
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+ext {
+    serenityVersion = "4.2.9"
+    cucumberVersion = "7.14.0"
+    lombokVersion = "1.18.36"
+    hamcrestVersion = "3.0"
+    slf4jVersion ="2.0.3"
+}
+
+dependencies {
+    implementation "net.serenity-bdd:serenity-core:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-screenplay:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-screenplay-rest:${serenityVersion}"
+    implementation "net.serenity-bdd:serenity-cucumber:${serenityVersion}"
+    testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-junit:${cucumberVersion}"
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+    implementation "org.hamcrest:hamcrest:${hamcrestVersion}"
+
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+defaultTasks 'clean', 'test', 'aggregate'
